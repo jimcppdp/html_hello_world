@@ -1,47 +1,31 @@
 {
-  "name": "codemirror",
-  "version": "5.58.3",
-  "main": "lib/codemirror.js",
-  "style": "lib/codemirror.css",
-  "author": {
-    "name": "Marijn Haverbeke",
-    "email": "marijnh@gmail.com",
-    "url": "http://marijnhaverbeke.nl"
-  },
-  "description": "Full-featured in-browser code editor",
-  "license": "MIT",
-  "directories": {
-    "lib": "./lib"
-  },
+  "name": "nes-js",
+  "version": "0.0.1",
+  "description": "JavaScript NES emulator",
+  "main": "index.js",
   "scripts": {
-    "build": "rollup -c",
-    "watch": "rollup -w -c",
-    "prepare": "npm run-script build",
-    "test": "node ./test/run.js",
-    "lint": "bin/lint"
+    "all": "npm run build && npm run build-uglify",
+    "build": "webpack index.js build/nes.js",
+    "build-uglify": "webpack -p index.js build/nes.min.js"
   },
-  "devDependencies": {
-    "@rollup/plugin-buble": "^0.21.3",
-    "blint": "^1.1.0",
-    "node-static": "0.7.11",
-    "puppeteer": "^1.20.0",
-    "rollup": "^1.26.3"
-  },
-  "bugs": "http://github.com/codemirror/CodeMirror/issues",
-  "keywords": [
-    "JavaScript",
-    "CodeMirror",
-    "Editor"
-  ],
-  "homepage": "https://codemirror.net",
   "repository": {
     "type": "git",
-    "url": "https://github.com/codemirror/CodeMirror.git"
+    "url": "git+https://github.com/takahirox/nes-js.git"
   },
-  "jspm": {
-    "directories": {},
-    "dependencies": {},
-    "devDependencies": {}
+  "keywords": [
+    "emu",
+    "emulator",
+    "nes",
+    "webaudio"
+  ],
+  "author": "Takahiro <hogehoge@gachapin.jp> (https://github.com/takahirox)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/takahirox/nes-js/issues"
   },
-  "dependencies": {}
+  "homepage": "https://github.com/takahirox/nes-js#readme",
+  "devDependencies": {
+    "webpack": "^3.6.0"
+  }
 }
+

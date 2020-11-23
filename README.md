@@ -1,47 +1,134 @@
-# CodeMirror
+# nes-js
 
-[![Build Status](https://travis-ci.org/codemirror/CodeMirror.svg)](https://travis-ci.org/codemirror/CodeMirror)
-[![NPM version](https://img.shields.io/npm/v/codemirror.svg)](https://www.npmjs.org/package/codemirror)
+This is JavaScript NES(Famicom) emulator which runs on browser.
 
-CodeMirror is a versatile text editor implemented in JavaScript for
-the browser. It is specialized for editing code, and comes with over
-100 language modes and various addons that implement more advanced
-editing functionality. Every language comes with fully-featured code
-and syntax highlighting to help with reading and editing complex code.
+## Demo
 
-A rich programming API and a CSS theming system are available for
-customizing CodeMirror to fit your application, and extending it with
-new functionality.
+[Demo](http://takahirox.github.io/nes-js/index.html)
 
-You can find more information (and the
-[manual](https://codemirror.net/doc/manual.html)) on the [project
-page](https://codemirror.net). For questions and discussion, use the
-[discussion forum](https://discuss.codemirror.net/).
+[Demo with Three.js](http://takahirox.github.io/nes-js/index2.html) (It has a performance issue!)
 
-See
-[CONTRIBUTING.md](https://github.com/codemirror/CodeMirror/blob/master/CONTRIBUTING.md)
-for contributing guidelines.
+[WebVR Demo with Three.js](http://takahirox.github.io/nes-js/index3.html) (It has a serious performance issue!)
 
-The CodeMirror community aims to be welcoming to everybody. We use the
-[Contributor Covenant
-(1.1)](http://contributor-covenant.org/version/1/1/0/) as our code of
-conduct.
+[AR Demo with Three.js and jsartoolkit5](https://takahirox.github.io/nes-js/index4.html) (It has a performance issue!)
 
-### Installation
+## Screenshot
 
-Either get the [zip file](https://codemirror.net/codemirror.zip) with
-the latest version, or make sure you have [Node](https://nodejs.org/)
-installed and run:
+![Screen shot](https://github.com/takahirox/assets/blob/master/nes-js/screenshot.png)
 
-    npm install codemirror
+![Screen shot with Three.js](https://github.com/takahirox/takahirox.github.io/blob/master/images/nesemu.png)
 
-**NOTE**: This is the source repository for the library, and not the
-distribution channel. Cloning it is not the recommended way to install
-the library, and will in fact not work unless you also run the build
-step.
+## Features
 
-### Quickstart
+- iNES format rom image support
+- Renders with Canvas
+- Audio support with WebAudio
+- Runs on browser
 
-To build the project, make sure you have Node.js installed (at least version 6)
-and then `npm install`. To run, just open `index.html` in your
-browser (you don't need to run a webserver). Run the tests with `npm test`.
+## Browser
+
+### How to use
+
+```html
+<head>
+  <script type="text/javascript" src="https://cdn.rawgit.com/takahirox/nes-js/v0.0.1/build/nes.min.js"></script>
+  <script type="text/javascript" >
+    function init() {
+      var url = 'url to rom image';
+      var request = new XMLHttpRequest();
+      request.responseType = 'arraybuffer';
+
+      request.onload = function() {
+        var buffer = request.response;
+        var nes = new NesJs.Nes();
+
+        nes.setRom(new NesJs.Rom(buffer));
+        nes.setDisplay(new NesJs.Display(document.getElementById('gameCanvas')));
+        nes.setAudio(new NesJs.Audio());
+
+        window.onkeydown = function(e) { nes.handleKeyDown(e); };
+        window.onkeyup = function(e) { nes.handleKeyUp(e); };
+
+        nes.bootup();
+        nes.run();
+      };
+
+      request.open('GET', url, true);
+      request.send(null);
+    }
+  </script>
+</head>
+
+<body onload="init()">
+  <p>
+    <canvas id="gameCanvas" width="256" height="240"></canvas>
+  </p>
+</body>
+```
+
+## NPM
+
+### How to install
+
+```
+$ npm install nes-js
+```
+
+### How to build
+
+```
+$ npm install
+$ npm run all
+```
+
+## Default key configuration
+
+This table shows the key - joypad configuration set by
+
+```html
+  window.onkeydown = function(e) { nes.handleKeyDown(e); };
+  window.onkeyup = function(e) { nes.handleKeyUp(e); };
+```
+
+| key          | joypad |
+|--------------|--------|
+| enter        | start  |
+| space        | select |
+| cursor-left  | left   |
+| cursor-up    | up     |
+| cursor-right | right  |
+| cursor-down  | down   |
+| x            | A      |
+| z            | B      |
+
+## APIs
+
+T.B.D.
+
+- NesJs
+  - Nes
+    - setRom()
+    - setDisplay()
+    - setAudio()
+    - bootup()
+    - run()
+    - handleKeyDown()
+    - handleKeyUp()
+  - Rom
+  - Display
+  - Audio
+
+## TODO
+
+- Performance optimization
+- Support more many mappers
+- Support unofficial CPU instructions
+- Gamepad API support
+
+
+## Links
+- Nes Dev
+  - [Nes Dev Wiki](http://wiki.nesdev.com/w/index.php/Nesdev_Wiki)
+- VR/AR
+  - [Three.js](https://github.com/mrdoob/three.js)
+  - [jsartoolkit5](https://github.com/artoolkit/jsartoolkit5)
