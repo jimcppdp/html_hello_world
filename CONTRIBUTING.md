@@ -1,38 +1,92 @@
-# Contributing
+# How to contribute
 
-#### Pull Requests
+- [Getting help](#getting-help)
+- [Submitting bug reports](#submitting-bug-reports)
+- [Contributing code](#contributing-code)
 
-Let me know before you work on something by opening an issue or commenting on an existing one.
-I don't want your effort to be wasted!
+## Getting help
 
-#### Issues
+Community discussion, questions, and informal bug reporting is done on the
+[discuss.CodeMirror forum](http://discuss.codemirror.net).
 
-Open issues! Search for issues first, but open issues for features, issues for problems...
+## Submitting bug reports
 
-Feel free to open issues in a "meta" context, like "hey, maybe you should tag issues with 'good first issue'" etc.
+The preferred way to report bugs is to use the
+[GitHub issue tracker](http://github.com/codemirror/CodeMirror/issues). Before
+reporting a bug, read these pointers.
 
-https://github.com/1j01/jspaint/issues
+**Note:** The issue tracker is for *bugs*, not requests for help. Questions
+should be asked on the
+[discuss.CodeMirror forum](http://discuss.codemirror.net) instead.
 
-You can also just [email me](mailto:isaiahodhner@gmail.com) if you prefer (and I'll probably create an issue).
+### Reporting bugs effectively
 
-#### Windows 98
+- CodeMirror is maintained by volunteers. They don't owe you anything, so be
+  polite. Reports with an indignant or belligerent tone tend to be moved to the
+  bottom of the pile.
 
-JS Paint's GUI is primarily based on Paint from Windows 98.
-There's a nice [online emulator here](https://copy.sh/v86/?profile=windows98)
-that you can play around with and/or use as a reference.
+- Include information about **the browser in which the problem occurred**. Even
+  if you tested several browsers, and the problem occurred in all of them,
+  mention this fact in the bug report. Also include browser version numbers and
+  the operating system that you're on.
 
-You can open issues relating to that UI, but also for general functionality that isn't necessarily in mspaint,
-for instance jspaint already has affordances like unlimited undos, extra menu items, and shortcut-like features.
+- Mention which release of CodeMirror you're using. Preferably, try also with
+  the current development snapshot, to ensure the problem has not already been
+  fixed.
 
-## Dev Setup
+- Mention very precisely what went wrong. "X is broken" is not a good bug
+  report. What did you expect to happen? What happened instead? Describe the
+  exact steps a maintainer has to take to make the problem occur. We can not
+  fix something that we can not observe.
 
-* Install Node.js if you don't have it (and maybe update it)
-* Clone the repo
-* Install dependencies with `npm i`
-* Run `npm run dev` to start up a live-reloading web server
+- If the problem can not be reproduced in any of the demos included in the
+  CodeMirror distribution, please provide an HTML document that demonstrates
+  the problem. The best way to do this is to go to
+  [jsbin.com](http://jsbin.com/ihunin/edit), enter it there, press save, and
+  include the resulting link in your bug report.
 
-### Project Structure
+## Contributing code
 
-It's messy. A lot of stuff is in a file simply called "functions.js", to give you an idea of it.
+Note that we are not accepting any new addons or modes into the main
+distribution. If you've written such a module, please distribute it as
+a separate NPM package.
 
-I can go into more detail [if you want..](https://github.com/1j01/jspaint/issues)
+- Make sure you have a [GitHub Account](https://github.com/signup/free)
+- Fork [CodeMirror](https://github.com/codemirror/CodeMirror/)
+  ([how to fork a repo](https://help.github.com/articles/fork-a-repo))
+- Make your changes
+- If your changes are easy to test or likely to regress, add tests.
+  Tests for the core go into `test/test.js`, some modes have their own
+  test suite under `mode/XXX/test.js`. Feel free to add new test
+  suites to modes that don't have one yet (be sure to link the new
+  tests into `test/index.html`).
+- Follow the general code style of the rest of the project (see
+  below). Run `bin/lint` to verify that the linter is happy.
+- Make sure all tests pass. Visit `test/index.html` in your browser to
+  run them.
+- Submit a pull request
+([how to create a pull request](https://help.github.com/articles/fork-a-repo)).
+  Don't put more than one feature/fix in a single pull request.
+
+By contributing code to CodeMirror you
+
+ - agree to license the contributed code under CodeMirror's [MIT
+   license](https://codemirror.net/LICENSE).
+
+ - confirm that you have the right to contribute and license the code
+   in question. (Either you hold all rights on the code, or the rights
+   holder has explicitly granted the right to use it like this,
+   through a compatible open source license or through a direct
+   agreement with you.)
+
+### Coding standards
+
+- 2 spaces per indentation level, no tabs.
+
+- Note that the linter (`bin/lint`) which is run after each commit
+  complains about unused variables and functions. Prefix their names
+  with an underscore to muffle it.
+
+- CodeMirror does *not* follow JSHint or JSLint prescribed style.
+  Patches that try to 'fix' code to pass one of these linters will be
+  unceremoniously discarded.
